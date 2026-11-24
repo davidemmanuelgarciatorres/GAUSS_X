@@ -32,11 +32,7 @@ const routes = {
     detail: 'Registro de ejecuciones y operaciones.',
     availability: 'Disponible en la Fase 3.'
   },
-  configuracion: {
-    title: 'Configuración',
-    detail: 'Preferencias y permisos de la plataforma.',
-    availability: 'Se define en una fase posterior.'
-  }
+   configuracion: { title: 'Configuración', render: renderSettings } 
 };
 
 function currentRoute() {
