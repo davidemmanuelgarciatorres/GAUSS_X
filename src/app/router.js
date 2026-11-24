@@ -1,17 +1,15 @@
 import { h } from '../utils/dom.js';
+import { APP_NAME } from './brand.js';
 import { renderPending } from '../pages/pending.js';
+import { renderDashboard } from '../pages/dashboard.js';
 
 const DEFAULT_ROUTE = 'dashboard';
 
 const routes = {
-  dashboard: {
-    title: 'Dashboard',
-    detail: 'Resumen de tareas, aprobaciones, agentes, archivos y conexiones.',
-    availability: 'Llega en la siguiente entrega de la Fase 1.'
-  },
+  dashboard: { title: 'Dashboard', render: renderDashboard },
   agentes: {
     title: 'Agentes',
-    detail: 'Registro y estado de los cuatro agentes de GAUSS.',
+    detail: 'Registro y estado de los cuatro agentes.',
     availability: 'Disponible en la Fase 3.'
   },
   archivos: {
@@ -49,7 +47,7 @@ function currentRoute() {
 function renderNotFound() {
   return h('section', { class: 'page' },
     h('h1', {}, 'Página no encontrada'),
-    h('p', { class: 'lede' }, 'Esta dirección no existe en GAUSS.'),
+    h('p', { class: 'lede' }, `Esta dirección no existe en ${APP_NAME}.`),
     h('p', {}, h('a', { href: '#/dashboard' }, 'Ir al Dashboard'))
   );
 }
@@ -70,9 +68,13 @@ export function startRouter({ view, nav, onNavigate }) {
     const route = Object.prototype.hasOwnProperty.call(routes, name) ? routes[name] : null;
 
     try {
-      view.replaceChildren(route ? renderPending(route) : renderNotFound());
+      if (!route) {
+        view.replaceChildren(renderNotFound());
+      } else {
+        view.replaceChildren(route.render ? route.render() : renderPending(route));
+      }
     } catch (error) {
-      console.error('GAUSS: error al mostrar la sección', error);
+      console.error(`${APP_NAME}: error al mostrar la sección`, error);
       view.replaceChildren(
         h('p', { class: 'status status-error', role: 'alert' },
           'No se pudo mostrar esta sección. Recarga la página.')
@@ -80,7 +82,7 @@ export function startRouter({ view, nav, onNavigate }) {
     }
 
     markActive(nav, name);
-    document.title = route ? `${route.title} · GAUSS` : 'GAUSS';
+    document.title = route ? `${route.title} · ${APP_NAME}` : APP_NAME;
     window.scrollTo(0, 0);
     view.focus({ preventScroll: true });
     if (onNavigate) onNavigate();
@@ -88,4 +90,4 @@ export function startRouter({ view, nav, onNavigate }) {
 
   window.addEventListener('hashchange', render);
   render();
-      }
+}
