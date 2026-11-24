@@ -115,3 +115,52 @@ main:focus { outline: none; }
 @media (min-width: 900px) {
   .nav:not(.is-open) { visibility: visible; }
 }
+/* Fondo de lámpara de lava */
+.lava {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(180deg, #14082b 0%, #0a0f33 60%, #1b1050 100%);
+  animation: lava-hue 120s linear infinite;
+}
+.lava span {
+  --dx: 0px;
+  --dy: 0px;
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, var(--hi) 0%, var(--blob) 48%, transparent 74%);
+  will-change: transform;
+  animation: lava-drift var(--dur) ease-in-out infinite alternate;
+  animation-delay: var(--delay);
+}
+.lava .b1 { --blob: #ff4a1c; --hi: #ffb347; --dur: 38s; --delay: -9s;  --dx: 14vw;  --dy: -80vh; width: 56vmax; height: 56vmax; left: -14vmax;  bottom: -22vmax; }
+.lava .b2 { --blob: #ff2d2d; --hi: #ff8a3d; --dur: 46s; --delay: -20s; --dx: -12vw; --dy: -90vh; width: 42vmax; height: 42vmax; right: -10vmax; bottom: -18vmax; }
+.lava .b3 { --blob: #ff9a1f; --hi: #ffd86b; --dur: 30s; --delay: -4s;  --dx: 8vw;   --dy: -65vh; width: 30vmax; height: 30vmax; left: 30vw;     bottom: -14vmax; }
+.lava .b4 { --blob: #ff3b1f; --hi: #ff9c4d; --dur: 52s; --delay: -31s; --dx: -14vw; --dy: 55vh;  width: 38vmax; height: 38vmax; right: 8vw;      top: -16vmax; }
+.lava .b5 { --blob: #2f4bff; --hi: #6f8cff; --dur: 60s; --delay: -15s; --dx: 16vw;  --dy: -40vh; width: 46vmax; height: 46vmax; left: -18vmax;   top: 30vh; }
+.lava .b6 { --blob: #8a2cff; --hi: #c07bff; --dur: 56s; --delay: -40s; --dx: -10vw; --dy: 45vh;  width: 40vmax; height: 40vmax; right: -16vmax;  top: 20vh; }
+
+@keyframes lava-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1, 1); }
+  50%  { transform: translate3d(var(--dx), calc(var(--dy) * 0.5), 0) scale(1.12, 0.94); }
+  100% { transform: translate3d(calc(var(--dx) * -0.5), var(--dy), 0) scale(0.92, 1.1); }
+}
+@keyframes lava-hue {
+  from { filter: hue-rotate(0deg); }
+  to   { filter: hue-rotate(360deg); }
+}
+
+/* Legibilidad sobre el fondo */
+.topbar { background: rgba(24, 28, 35, 0.9); }
+.nav { background: rgba(24, 28, 35, 0.94); }
+.page {
+  padding: var(--space-4);
+  background: rgba(16, 18, 22, 0.86);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lava, .lava span { animation: none; }
+}
