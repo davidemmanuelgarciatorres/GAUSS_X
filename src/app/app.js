@@ -1,4 +1,5 @@
 import { startRouter } from './router.js';
+import { refreshFloaters } from './floaters.js';
 
 const menuBtn = document.getElementById('menu-btn');
 const nav = document.getElementById('nav');
@@ -19,3 +20,4 @@ document.addEventListener('keydown', (event) => {
 });
 
 startRouter({ view, nav, onNavigate: () => setMenu(false) });
+refreshFloaters();
