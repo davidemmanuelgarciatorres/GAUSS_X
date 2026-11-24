@@ -2,7 +2,7 @@ import { h } from '../utils/dom.js';
 import { APP_NAME } from './brand.js';
 import { renderPending } from '../pages/pending.js';
 import { renderDashboard } from '../pages/dashboard.js';
-
+import { renderSettings } from '../pages/settings.js';
 const DEFAULT_ROUTE = 'dashboard';
 
 const routes = {
