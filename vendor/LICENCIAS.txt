@@ -1,0 +1,8 @@
+Bibliotecas de terceros en esta carpeta
+
+SheetJS Community Edition (xlsx.full.min.js)
+Copyright (C) 2012-present SheetJS LLC
+Licencia Apache 2.0 - https://sheetjs.com/
+
+Papa Parse (papaparse.min.js)
+Licencia MIT - https://www.papaparse.com/
